@@ -4,7 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [dev-packages]
-pylint = "2.8.2"
+pylint = "*"
+autopep8 = "*"
 
 [packages]
 Django = "3.2.3"

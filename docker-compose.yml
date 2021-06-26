@@ -46,7 +46,10 @@ services:
 
   django:
     container_name: django
-    build: ./backend
+    build:
+      context: ./backend
+      args:
+        TYPE_ENV: ${TYPE_ENV}
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
