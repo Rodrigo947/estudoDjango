@@ -7,3 +7,5 @@ COPY . /code
 RUN pip install pipenv
 
 RUN pipenv install --dev --system --deploy
+
+ENTRYPOINT ["sh", "entrypoint.sh"]

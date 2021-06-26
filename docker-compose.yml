@@ -46,12 +46,7 @@ services:
 
   django:
     container_name: django
-    build: 
-      context: ./backend
-      dockerfile: Dockerfile
-      args:
-        TYPE_ENV: ${TYPE_ENV}
-    entrypoint: ["./entrypoint.sh"]
+    build: ./backend
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
