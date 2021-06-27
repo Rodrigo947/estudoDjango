@@ -13,7 +13,7 @@ services:
         ipv4_address: ${PORTAINER_IP} 
 
   pgadmin:
-    image: dpage/pgadmin4:5.3
+    image: dpage/pgadmin4
     container_name: pgadmin
     environment:
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_LOGIN_EMAIL}

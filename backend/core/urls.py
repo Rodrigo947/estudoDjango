@@ -13,9 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
+#from django.contrib import admin
 from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
+from api import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    #path('admin/', admin.site.urls),
+    path('instituicoes/', views.InstituicaoList.as_view()),
+    path('instituicoes/<uuid:pk>', views.InstituicaoDetail.as_view()),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
