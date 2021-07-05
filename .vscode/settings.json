@@ -1,0 +1,13 @@
+{
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.linting.pylintArgs": [
+    "--load-plugins=pylint_django",
+    "--disable=django-not-configured",
+    "--disable=C0111",
+    "--indent-size=2",
+  ],
+  "python.formatting.autopep8Args": [
+    "--indent-size=2",
+  ]
+}

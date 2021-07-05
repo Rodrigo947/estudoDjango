@@ -9,9 +9,9 @@ COPY . /code
 RUN pip install pipenv
 
 RUN if [ "$TYPE_ENV" = "dev" ]; then \
-    pipenv install --dev --system --deploy; \
+  pipenv install --dev --system --deploy; \
   else \
-    pipenv install --system --deploy; \
+  pipenv install --system --deploy; \
   fi
 
 ENTRYPOINT ["sh", "entrypoint.sh"]
