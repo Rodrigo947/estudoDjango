@@ -14,7 +14,7 @@ class InstituicaoList(APIView):
   # authentication_classes = [TokenAuthentication]
 
   def get(self, request, format=None):
-    instituicoes = Instituicao.objects.filter(owner=request.user)
+    instituicoes = Instituicao.objects.all()
     serializer = InstituicaoSerializer(instituicoes, many=True)
     return Response(serializer.data)
 
