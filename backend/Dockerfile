@@ -2,6 +2,8 @@ FROM python:3.9
 
 ARG TYPE_ENV
 
+ENV PYTHONUNBUFFERED 1
+
 WORKDIR /code
 
 COPY . /code

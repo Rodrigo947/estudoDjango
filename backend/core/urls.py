@@ -25,6 +25,7 @@ urlpatterns = [
     path('instituicoes/<uuid:pk>', views.InstituicaoDetail.as_view()),
     path('users/', views.UserList.as_view()),
     path('users/<uuid:pk>/', views.UserDetail.as_view()),
+    path('api-token-auth/', views.CustomTokenAuth.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

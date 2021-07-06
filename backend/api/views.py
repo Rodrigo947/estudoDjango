@@ -5,16 +5,20 @@ from django.http import Http404
 from rest_framework import status, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.views import ObtainAuthToken
 
 
 class InstituicaoList(APIView):
   """
   Lista todas as Instituições ou cria uma
   """
-  # authentication_classes = [TokenAuthentication]
+  authentication_classes = [TokenAuthentication]
 
   def get(self, request, format=None):
-    instituicoes = Instituicao.objects.all()
+    # SELECT * FROM instituicao WHERE owner = id_do_usuario
+    instituicoes = Instituicao.objects.filter(owner=request.user)
     serializer = InstituicaoSerializer(instituicoes, many=True)
     return Response(serializer.data)
 
@@ -30,7 +34,8 @@ class InstituicaoDetail(APIView):
   """
   Lista, atualiza ou deleta uma instiuicao
   """
-  permission_classes = [IsOwner, remocaoImpossivel]
+  authentication_classes = [TokenAuthentication]
+  permission_classes = [remocaoImpossivel]
 
   def get_object(self, pk):
     try:
@@ -69,6 +74,9 @@ class UserList(generics.ListCreateAPIView):
   """
   Lista todas os Usuários ou cria um
   """
+
+  authentication_classes = [TokenAuthentication]
+
   queryset = Usuario.objects.all()
   serializer_class = UsuarioSerializer
 
@@ -79,3 +87,19 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
   """
   queryset = Usuario.objects.all()
   serializer_class = UsuarioSerializer
+
+
+class CustomTokenAuth(ObtainAuthToken):
+
+  def post(self, request, *args, **kwargs):
+    serializer = self.serializer_class(data=request.data,
+                                       context={'request': request})
+    serializer.is_valid(raise_exception=True)
+    user = serializer.validated_data['user']
+    token, created = Token.objects.get_or_create(user=user)
+    return Response({
+        'token': token.key,
+        'user_id': user.pk,
+        'email': user.email,
+        'username': user.username,
+    })
